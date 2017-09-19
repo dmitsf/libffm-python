@@ -180,7 +180,7 @@ class FFM():
 
     def freemem_predict():
         _lib.free_predict(self.predict_ptr)
-         self.predict_ptr = None
+        self.predict_ptr = None
 
 
     def _predict_row(self, nodes):
