@@ -776,6 +776,11 @@ ffm_float* ffm_predict_batch(ffm_problem &prob, ffm_model &model) {
 }
 
 
+void free_predict(ffm_float* predict)
+{
+    delete[] predict;
+}
+
 void ffm_save_model(ffm_model &model, string path) {
     ofstream f_out(path, ios::out | ios::binary);
     f_out.write(reinterpret_cast<char*>(&model.n), sizeof(ffm_int));

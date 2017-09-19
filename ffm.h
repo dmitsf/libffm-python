@@ -49,6 +49,7 @@ ffm_model ffm_train_on_disk(string Tr_path, string Va_path, ffm_parameter param)
 ffm_float ffm_predict(ffm_node *begin, ffm_node *end, ffm_model &model);
 
 
+
 // new structs and methods for the wrapper
 
 struct ffm_line {
@@ -85,6 +86,8 @@ ffm_float ffm_train_iteration(ffm_problem &data, ffm_model &model, ffm_parameter
 ffm_float ffm_predict_array(ffm_node *nodes, int len, ffm_model &model);
 
 ffm_float* ffm_predict_batch(ffm_problem &data, ffm_model &model);
+
+void free_predict(ffm_float* predict);
 
 } // namespace ffm
 

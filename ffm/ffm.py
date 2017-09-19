@@ -80,6 +80,8 @@ _lib.ffm_predict_array.restype = ctypes.c_float
 _lib.ffm_predict_batch.restype = ctypes.POINTER(ctypes.c_float)
 _lib.ffm_predict_batch.argtypes = [FFM_Problem_ptr, FFM_Model_ptr]
 
+_lib.free_predict.argtypes = [ctypes.POINTER(ctypes.c_float)]
+
 _lib.ffm_load_model_c_string.restype = FFM_Model
 _lib.ffm_load_model_c_string.argtypes = [ctypes.c_char_p]
 
@@ -136,6 +138,7 @@ class FFM():
     def __init__(self, eta=0.2, lam=0.00002, k=4):
         self._params = FFM_Parameter(eta=eta, lam=lam, k=k)
         self._model = None
+        self.predict_ptr = None
 
     def read_model(self, path):
         path_char = ctypes.c_char_p(path.encode())
@@ -172,7 +175,13 @@ class FFM():
         array_cast = (ctypes.c_float * size).from_address(pred_ptr_address)
 
         pred = np.ctypeslib.as_array(array_cast)
+        self.predict_ptr = pred_ptr
         return pred
+
+    def freemem_predict():
+        _lib.free_predict(self.predict_ptr)
+         self.predict_ptr = None
+
 
     def _predict_row(self, nodes):
         n = nodes._length_
