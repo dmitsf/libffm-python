@@ -699,6 +699,14 @@ ffm_problem ffm_convert_data(ffm_line* data, ffm_int num_lines) {
     return result;
 }
 
+void free_ffmdata(ffm_problem& problem)
+{
+    delete[] problem.data;
+    delete[] problem.pos;
+    delete[] problem.labels;
+    delete[] problem.scales;
+ }
+
 ffm_model ffm_init_model(ffm_problem& problem, ffm_parameter params) {
     int n = problem.n;
     int m = problem.m;

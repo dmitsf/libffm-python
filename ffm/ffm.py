@@ -66,6 +66,8 @@ _lib = ctypes.cdll.LoadLibrary(lib_path)
 _lib.ffm_convert_data.restype = FFM_Problem
 _lib.ffm_convert_data.argtypes = [FFM_Line_ptr, ctypes.c_int]
 
+_lib.free_ffmdata.argtypes = [FFM_Problem_ptr]
+
 _lib.ffm_init_model.restype = FFM_Model
 _lib.ffm_init_model.argtypes = [FFM_Problem_ptr, FFM_Parameter]
 
@@ -124,6 +126,9 @@ class FFMData():
 
     def num_rows(self):
         return self._data.size
+
+    def freemem(self):
+        _lib.free_ffmdata(self._data)
 
 # FFM model
 
