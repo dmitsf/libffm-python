@@ -178,7 +178,7 @@ class FFM():
         self.predict_ptr = pred_ptr
         return pred
 
-    def freemem_predict():
+    def freemem_predict(self):
         _lib.free_predict(self.predict_ptr)
         self.predict_ptr = None
 
