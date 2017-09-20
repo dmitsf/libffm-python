@@ -175,12 +175,12 @@ class FFM():
         array_cast = (ctypes.c_float * size).from_address(pred_ptr_address)
 
         pred = np.ctypeslib.as_array(array_cast)
-        self.predict_ptr = pred_ptr
-        return pred
+        
+        return pred, pred_ptr
 
-    def freemem_predict(self):
-        _lib.free_predict(self.predict_ptr)
-        self.predict_ptr = None
+    def freemem_predict(self, predict_ptr):
+        _lib.free_predict(predict_ptr)
+        predict_ptr = None
 
 
     def _predict_row(self, nodes):
